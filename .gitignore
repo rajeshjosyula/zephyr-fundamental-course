@@ -4,3 +4,7 @@ build
 # West files
 .west
 deps
+
+# Venv
+.venv
+.vscode
