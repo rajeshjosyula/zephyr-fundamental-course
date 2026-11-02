@@ -1,0 +1,3 @@
+config RAJESH_DRIVER
+    bool "My Simple GPIO Driver"
+    default y

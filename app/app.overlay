@@ -1,0 +1,6 @@
+/{
+	rajesh_driver0: rajesh_driver {
+		compatible = "rajesh,driver";
+		status = "okay";
+	};
+};
