@@ -42,7 +42,7 @@ config LED_BRIGHTNESS
 config LED_FADE_DURATION
     int "LED Fade duration (ms)"
     default 500
-    range 0 1000
+    range 0 5000
     help
       This option sets the fade duration of the LED.
 
