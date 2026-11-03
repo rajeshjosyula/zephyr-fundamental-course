@@ -3,4 +3,9 @@
 		compatible = "rajesh,driver";
 		status = "okay";
 	};
+	
+
+     aliases {
+             my-led = &green_led;
+     };
 };

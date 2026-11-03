@@ -6,3 +6,4 @@ config APP_HEARTBEAT_PERIOD_MS
       This option sets the heartbeat period of the application.
 
 source "Kconfig.zephyr"
+rsource "../drivers/rajesh_driver/Kconfig"

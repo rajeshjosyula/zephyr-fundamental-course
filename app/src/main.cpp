@@ -1,36 +1,31 @@
-#include <zephyr/drivers/gpio.h>
-#include <zephyr/kernel.h>
-#include <zephyr/logging/log.h>
+#include <zephyr/device.h>
 #include <zephyr/drivers/sensor.h>
+#include <zephyr/kernel.h>
 
-#define DT_DRV_COMPAT rajesh_driver
-
-LOG_MODULE_REGISTER(rajesh_driver, CONFIG_SENSOR_LOG_LEVEL);
+static const struct device *const driver_dev = DEVICE_DT_GET(DT_NODELABEL(rajesh_driver0));
 
 int main(void)
 {
-    const struct device* dev = DEVICE_DT_GET_ANY(rajesh_driver);
-
-    if(!device_is_ready(dev)) {
+    if (!device_is_ready(driver_dev)) {
         return -ENODEV;
     }
 
-    struct sensor_value val;
+    struct sensor_value value;
 
-    /* Test: Turn ON the LED using sensor_sample_fetch */
-    int ret = sensor_sample_fetch(dev);
-    if (ret) {
-        LOG_ERR("Failed to fetch sample: %d", ret);
-        return ret;
-    }
+    while (1) {
+        int res = sensor_sample_fetch(driver_dev);
+        if (res) {
+            printk("sensor_sample_fetch failed with response: %d\n", res);
+            return res;
+        }
+        k_msleep(1000);
 
-    k_msleep(1000);
-
-    /* Test: Turn OFF the LED using sensor_channel_get */
-    ret = sensor_channel_get(dev, SENSOR_CHAN_ALL, &val);
-    if (ret) {
-        LOG_ERR("Failed to get channel: %d", ret);
-        return ret;
+        res = sensor_channel_get(driver_dev, SENSOR_CHAN_ALL, &value);
+        if (res) {
+            printk("sensor_channel_get failed with response: %d\n", res);
+            return res;
+        }
+        k_msleep(1000);
     }
 
     return 0;
